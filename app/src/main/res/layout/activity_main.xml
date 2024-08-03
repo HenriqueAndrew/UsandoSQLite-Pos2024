@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Cod:"
+        android:text="@string/cod"
         app:layout_constraintBottom_toBottomOf="@+id/etCod"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/informe_o_c_digo"
+        android:importantForAutofill="no"
         android:inputType="number"
+        android:minHeight="48dp"
+        android:textColorHint="#546E7A"
         app:layout_constraintStart_toEndOf="@+id/tvCod"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +37,8 @@
         android:id="@+id/tvNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome:"
+        android:autofillHints=""
+        android:text="@string/nome"
         app:layout_constraintBottom_toBottomOf="@+id/etNome"
         app:layout_constraintStart_toStartOf="@+id/tvCod"
         app:layout_constraintTop_toTopOf="@+id/etNome" />
@@ -45,7 +50,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/informe_o_nome"
         android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#546E7A"
         app:layout_constraintStart_toEndOf="@+id/tvNome"
         app:layout_constraintTop_toBottomOf="@+id/etCod" />
 
@@ -53,10 +61,11 @@
         android:id="@+id/tvTelefone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Telefone:"
+        android:text="@string/telefone"
         app:layout_constraintBottom_toBottomOf="@+id/etTelefone"
         app:layout_constraintTop_toTopOf="@+id/etTelefone"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/etTelefone"
@@ -65,7 +74,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/informe_o_telefone"
         android:inputType="phone"
+        android:minHeight="48dp"
+        android:textColorHint="#546E7A"
         app:layout_constraintStart_toEndOf="@+id/tvTelefone"
         app:layout_constraintTop_toBottomOf="@+id/etNome" />
 
@@ -74,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Incluir"
+        android:text="@string/incluir"
         app:layout_constraintStart_toStartOf="@+id/tvTelefone"
         app:layout_constraintTop_toBottomOf="@+id/etTelefone" />
 
@@ -83,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Alterar"
+        android:text="@string/alterar"
         app:layout_constraintStart_toStartOf="@+id/btIncluir"
         app:layout_constraintTop_toBottomOf="@+id/btIncluir" />
 
@@ -92,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Excluir"
+        android:text="@string/excluir"
         app:layout_constraintStart_toStartOf="@+id/btAlterar"
         app:layout_constraintTop_toBottomOf="@+id/btAlterar" />
 
@@ -101,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Pesquisar"
+        android:text="@string/pesquisar"
         app:layout_constraintStart_toStartOf="@+id/btExcluir"
         app:layout_constraintTop_toBottomOf="@+id/btExcluir" />
 
@@ -110,7 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Listar"
+        android:text="@string/listar"
         app:layout_constraintStart_toStartOf="@+id/btPesquisar"
         app:layout_constraintTop_toBottomOf="@+id/btPesquisar" />
 
