@@ -1,15 +1,12 @@
 package br.edu.utfpr.usandosqlite_pos2024
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.utfpr.usandosqlite_pos2024.database.DatabaseHandler
 import br.edu.utfpr.usandosqlite_pos2024.databinding.ActivityMainBinding
 import br.edu.utfpr.usandosqlite_pos2024.entity.Cadastro
-
-private const val CODIGO = 0
-private const val NOME = 1
-private const val TELEFONE = 2
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,11 +74,11 @@ class MainActivity : AppCompatActivity() {
             binding.etTelefone.setText(registro.telefone)
         }
 
-        Toast.makeText(this, registro.toString(), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Registro não encontrado!", Toast.LENGTH_LONG).show()
     }
 
     private fun btListarOnClick() {
-       //val cursor = banco.rawQuery("SELECT * FROM cadastro", null)
+        /*
 
         //Cria cursor para percorrer registros
         val registro = banco.list()
@@ -100,6 +97,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         Toast.makeText(this, saida.toString(), Toast.LENGTH_LONG).show()
+
+        */
+
+        //Cria intent para listar registros
+        val intent = Intent(this, ListarActivity::class.java)
+        startActivity(intent)
     }
 
 }

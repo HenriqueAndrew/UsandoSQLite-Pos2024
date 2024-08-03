@@ -2,6 +2,7 @@ package br.edu.utfpr.usandosqlite_pos2024.database
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import br.edu.utfpr.usandosqlite_pos2024.entity.Cadastro
@@ -51,7 +52,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         registro.put("nome", cadastro.nome)
         registro.put("telefone", cadastro.telefone)
 
-        db.update(TABLE_NAME, registro, "_id =${cadastro.id}", null)
+        db.update(TABLE_NAME, registro, "_id =${cadastro._id}", null)
         db.close()
 
         //Alternativa para UPDATE com possibilidade de incluir mais argumentos
@@ -81,6 +82,8 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     }
 
     fun list() : MutableList<Cadastro>{
+        //val cursor = db.rawQuery("SELECT * FROM cadastro", null)
+
         val db = this.readableDatabase
 
         val registro = db.query(TABLE_NAME, null, null, null, null, null, null)
@@ -93,4 +96,11 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         }
         return registros
         }
+
+    fun cursorList() : Cursor {
+        val db = this.readableDatabase
+        val registro = db.query(TABLE_NAME, null, null, null, null, null, null)
+
+    return registro
+    }
 }
