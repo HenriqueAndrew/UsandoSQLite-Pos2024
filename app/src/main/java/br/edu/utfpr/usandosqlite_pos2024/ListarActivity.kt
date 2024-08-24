@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import br.edu.utfpr.usandosqlite_pos2024.adapter.MeuAdapter
 import br.edu.utfpr.usandosqlite_pos2024.database.DatabaseHandler
 import br.edu.utfpr.usandosqlite_pos2024.databinding.ActivityListarBinding
+import br.edu.utfpr.usandosqlite_pos2024.entity.Cadastro
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class ListarActivity : AppCompatActivity() {
 
@@ -50,13 +53,37 @@ class ListarActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        val banco = Firebase.firestore
+
+        var registros = mutableListOf<Cadastro>()
+
+        banco.collection( "cadastro" )
+            .get()
+            .addOnSuccessListener { result ->
+                var registros = mutableListOf<Cadastro>()
+                for ( document in result ) {
+                    val cadastro = Cadastro(
+                        document.data.get( "_id" ).toString().toInt(),
+                        document.data.get( "nome" ).toString(),
+                        document.data.get( "telefone" ).toString()
+                    )
+                    registros.add( cadastro )
+                }
+
+                //transição de dados para o ListView dados de banco de dados utilizando MeuAdapter (Adapter criado)
+                val adapter = MeuAdapter(this, registros)
+
+                //saída(destino) dos dados
+                binding.lvPrincipal.adapter = adapter
+            }
+            .addOnFailureListener{e ->
+                println ("Erro${e.message}")}
+
+        //return registros
+
         //exemplo fonte de dados - exemplo dados estáticos
-        val registros = banco.cursorList()
+        //val registros = banco.cursorList()
 
-        //transição de dados para o ListView dados de banco de dados utilizando MeuAdapter (Adapter criado)
-        val adapter = MeuAdapter(this, registros)
 
-        //saída(destino) dos dados
-        binding.lvPrincipal.adapter = adapter
     }
 }

@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import br.edu.utfpr.usandosqlite_pos2024.database.DatabaseHandler
 import br.edu.utfpr.usandosqlite_pos2024.databinding.ActivityMainBinding
 import br.edu.utfpr.usandosqlite_pos2024.entity.Cadastro
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         setButtonListener()
 
-        binding.etCod.setEnabled(false)
+        //binding.etCod.setEnabled(false)
 
         //trazer dados da intent para a tela se for editar se não trazer vazio para novo cadastro
         if(intent.getIntExtra("cod", 0) != 0) {
@@ -85,7 +87,8 @@ class MainActivity : AppCompatActivity() {
             )
             Toast.makeText(this, "Alteração realizada com sucesso!", Toast.LENGTH_LONG).show()
         }
-        //finish()
+
+        finish()
     }
 
     private fun btExcluirOnClick() {
@@ -106,6 +109,28 @@ class MainActivity : AppCompatActivity() {
         builder.setNegativeButton("Fechar", null)
         builder.setPositiveButton("Pesquisar", DialogInterface.OnClickListener { dialogInterface, id ->
 
+            val banco = Firebase.firestore
+
+            banco.collection( "cadastro" )
+                .whereEqualTo( "_id", etCodPesquisar.text.toString().toInt() )
+                .get()
+                .addOnSuccessListener { result ->
+                    val registro = result.documents.get(0)
+
+                    binding.etCod.setText( etCodPesquisar.text.toString() )
+                    binding.etNome.setText( registro.data?.get( "nome" ).toString() )
+                    binding.etTelefone.setText( registro.data?.get( "telefone" ).toString() )
+
+                }
+                .addOnFailureListener { e ->
+                    println( "Erro${e.message}")
+                }
+
+        }
+        )
+            /*Cria cursor para percorrer registros
+            //val registro = banco.find(binding.etCod.text.toString().toInt())
+
             //Cria cursor para percorrer registros
             val registro = banco.find(binding.etCod.text.toString().toInt())
 
@@ -117,7 +142,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Registro não encontrado!", Toast.LENGTH_LONG).show()
             }
-        })
+        }) */
 
         builder.show()
     }
@@ -152,6 +177,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
         System.out.println("onStart")
     }
 
