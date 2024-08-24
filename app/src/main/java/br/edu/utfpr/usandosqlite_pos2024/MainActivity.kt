@@ -1,8 +1,12 @@
 package br.edu.utfpr.usandosqlite_pos2024
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.utfpr.usandosqlite_pos2024.database.DatabaseHandler
 import br.edu.utfpr.usandosqlite_pos2024.databinding.ActivityMainBinding
@@ -20,16 +24,27 @@ class MainActivity : AppCompatActivity() {
 
         setButtonListener()
 
+        binding.etCod.setEnabled(false)
+
+        //trazer dados da intent para a tela se for editar se não trazer vazio para novo cadastro
+        if(intent.getIntExtra("cod", 0) != 0) {
+            binding.etCod.setText(intent.getIntExtra("cod", 0).toString())
+            binding.etNome.setText(intent.getStringExtra("nome"))
+            binding.etTelefone.setText(intent.getStringExtra("telefone"))
+        }else{
+            binding.btExcluir.visibility = View.GONE
+            binding.btPesquisar.visibility = View.GONE
+        }
+
         banco = DatabaseHandler(this)
+
+        System.out.println("onCreate")
     }
 
     private fun setButtonListener() {
-        binding.btIncluir.setOnClickListener {
-            btIncluirOnClick()
-        }
 
-        binding.btAlterar.setOnClickListener {
-            btAlterarOnClick()
+        binding.btSalvar.setOnClickListener {
+            btSalvarOnClick()
         }
 
         binding.btExcluir.setOnClickListener {
@@ -40,41 +55,71 @@ class MainActivity : AppCompatActivity() {
             btPesquisarOnClick()
         }
 
-        binding.btListar.setOnClickListener {
-            btListarOnClick()
-        }
-
     }
 
+    /*
     private fun btIncluirOnClick() {
         banco.insert(Cadastro(0, binding.etNome.text.toString(), binding.etTelefone.text.toString()))
 
         Toast.makeText(this, "Inclusão realizada com sucesso!", Toast.LENGTH_LONG).show()
     }
+    */
 
-    private fun btAlterarOnClick() {
-        banco.update(Cadastro (binding.etCod.text.toString().toInt(), binding.etNome.text.toString(), binding.etTelefone.text.toString()))
-
-        Toast.makeText(this, "Alteração realizada com sucesso!", Toast.LENGTH_LONG).show()
+    private fun btSalvarOnClick() {
+        if (binding.etCod.text.isEmpty()) {
+            banco.insert(
+                Cadastro(
+                    0,
+                    binding.etNome.text.toString(),
+                    binding.etTelefone.text.toString()
+                )
+            )
+            Toast.makeText(this, "Inclusão realizada com sucesso!", Toast.LENGTH_LONG).show()
+        } else {
+            banco.update(
+                Cadastro(
+                    binding.etCod.text.toString().toInt(),
+                    binding.etNome.text.toString(),
+                    binding.etTelefone.text.toString()
+                )
+            )
+            Toast.makeText(this, "Alteração realizada com sucesso!", Toast.LENGTH_LONG).show()
+        }
+        //finish()
     }
 
     private fun btExcluirOnClick() {
         banco.delete(binding.etCod.text.toString().toInt())
-
         Toast.makeText(this, "Exclusão realizada com sucesso!", Toast.LENGTH_LONG).show()
+
+        finish()
     }
 
     private fun btPesquisarOnClick() {
-        //Cria cursor para percorrer registros
-        val registro = banco.find(binding.etCod.text.toString().toInt())
+        val builder = AlertDialog.Builder(this)
 
-        //Percorre cursor para imprimir registros
-        if (registro != null) {
-            binding.etNome.setText(registro.nome)
-            binding.etTelefone.setText(registro.telefone)
-        }
+        val etCodPesquisar = EditText(this)
 
-        Toast.makeText(this, "Registro não encontrado!", Toast.LENGTH_LONG).show()
+        builder.setTitle("Informe o código para pesquisa")
+        builder.setView(etCodPesquisar)
+        builder.setCancelable(false)
+        builder.setNegativeButton("Fechar", null)
+        builder.setPositiveButton("Pesquisar", DialogInterface.OnClickListener { dialogInterface, id ->
+
+            //Cria cursor para percorrer registros
+            val registro = banco.find(binding.etCod.text.toString().toInt())
+
+            //Percorre cursor para imprimir registros
+            if (registro != null) {
+                binding.etCod.setText(etCodPesquisar.text.toString())
+                binding.etNome.setText(registro.nome)
+                binding.etTelefone.setText(registro.telefone)
+            } else {
+                Toast.makeText(this, "Registro não encontrado!", Toast.LENGTH_LONG).show()
+            }
+        })
+
+        builder.show()
     }
 
     private fun btListarOnClick() {
@@ -105,4 +150,34 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    override fun onStart() {
+        super.onStart()
+        System.out.println("onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        System.out.println("onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        System.out.println("onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        System.out.println("onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        System.out.println("onDestroy")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        System.out.println("onRestart")
+
+    }
 }

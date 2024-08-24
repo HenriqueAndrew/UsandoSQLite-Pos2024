@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import br.edu.utfpr.usandosqlite_pos2024.entity.Cadastro
 
 class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
+
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL("CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (_id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, telefone TEXT)")
     }
@@ -21,9 +22,9 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         private const val DATABASE_NAME = "dbfile.sqlite"
         private const val DATABASE_VERSION = 1
         private const val TABLE_NAME = "cadastro"
-        private const val CODIGO = 0
-        private const val NOME = 1
-        private const val TELEFONE = 2
+        public const val CODIGO = 0
+        public const val NOME = 1
+        public const val TELEFONE = 2
     }
 
     fun insert(cadastro : Cadastro){
@@ -41,7 +42,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         //registro.put("telefone", binding.etTelefone.text.toString())
         //banco.insert("cadastro", null, registro)
 
-        db.close()
+        //db.close()
 
     }
 
@@ -53,7 +54,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         registro.put("telefone", cadastro.telefone)
 
         db.update(TABLE_NAME, registro, "_id =${cadastro._id}", null)
-        db.close()
+        //db.close()
 
         //Alternativa para UPDATE com possibilidade de incluir mais argumentos
         //banco.update("cadastro", registro, "_id = ?", arrayOf(binding.etCod.text.toString()))
@@ -64,11 +65,11 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val db = this.writableDatabase
 
         db.delete(TABLE_NAME, "_id = ${id}", null)
-        db.close()
+        //db.close()
     }
 
     fun find(id : Int) : Cadastro?{
-        val db = this.readableDatabase
+        val db = this.writableDatabase
 
         val registro = db.query(TABLE_NAME, null, "_id = ${id}", null, null, null, null)
 
@@ -84,7 +85,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     fun list() : MutableList<Cadastro>{
         //val cursor = db.rawQuery("SELECT * FROM cadastro", null)
 
-        val db = this.readableDatabase
+        val db = this.writableDatabase
 
         val registro = db.query(TABLE_NAME, null, null, null, null, null, null)
 
@@ -95,10 +96,10 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
             registros.add(cadastro)
         }
         return registros
-        }
+    }
 
     fun cursorList() : Cursor {
-        val db = this.readableDatabase
+        val db = this.writableDatabase
         val registro = db.query(TABLE_NAME, null, null, null, null, null, null)
 
     return registro
