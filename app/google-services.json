@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371033716331",
+    "project_id": "usandosqlite-pos2024-d8b46",
+    "storage_bucket": "usandosqlite-pos2024-d8b46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371033716331:android:c416b1ecf9ee295a93e32e",
+        "android_client_info": {
+          "package_name": "br.edu.utfpr.usandosqlite_pos2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACk-htft2zzCIUKn4efbBabUEeSDB_9zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

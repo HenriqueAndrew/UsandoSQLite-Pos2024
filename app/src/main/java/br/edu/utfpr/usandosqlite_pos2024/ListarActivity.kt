@@ -55,7 +55,7 @@ class ListarActivity : AppCompatActivity() {
 
         val banco = Firebase.firestore
 
-        var registros = mutableListOf<Cadastro>()
+        //var registros = mutableListOf<Cadastro>()
 
         banco.collection( "cadastro" )
             .get()

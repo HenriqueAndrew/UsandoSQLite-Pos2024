@@ -26,13 +26,13 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         private const val DATABASE_NAME = "dbfile.sqlite"
         private const val DATABASE_VERSION = 1
         private const val TABLE_NAME = "cadastro"
-        public const val CODIGO = 0
-        public const val NOME = 1
-        public const val TELEFONE = 2
+        //public const val CODIGO = 0
+        //public const val NOME = 1
+        //public const val TELEFONE = 2
     }
 
     fun insert(cadastro : Cadastro){
-        val db = this.writableDatabase
+        //val db = this.writableDatabase
 
         val registro = hashMapOf(
         "_id" to cadastro._id,
@@ -72,6 +72,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                 println ("Erro${e.message}")}
     }
 
+    /*
     fun find(id : Int) : Cadastro?{
 
         banco.collection( "cadastro" )
@@ -93,6 +94,9 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         return null
 
     }
+     */
+
+    /*
 
     fun list() : MutableList<Cadastro>{
 
@@ -113,7 +117,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     }
 
 
-
+*/
 
 
 /*

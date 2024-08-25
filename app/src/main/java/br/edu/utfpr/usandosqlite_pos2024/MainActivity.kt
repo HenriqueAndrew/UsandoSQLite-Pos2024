@@ -1,7 +1,6 @@
 package br.edu.utfpr.usandosqlite_pos2024
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -147,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun btListarOnClick() {
+    //private fun btListarOnClick() {
         /*
 
         //Cria cursor para percorrer registros
@@ -171,9 +170,9 @@ class MainActivity : AppCompatActivity() {
         */
 
         //Cria intent para listar registros
-        val intent = Intent(this, ListarActivity::class.java)
-        startActivity(intent)
-    }
+        //val intent = Intent(this, ListarActivity::class.java)
+        //startActivity(intent)
+    //}
 
     override fun onStart() {
         super.onStart()
